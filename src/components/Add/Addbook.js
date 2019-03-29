@@ -70,7 +70,7 @@ class Addbook extends Component{
         
         this.props.onAdd(this.state.booktitlevalue, this.state.bookisbnvalue,  this.state.bookpublicationyearvalue,
         this.state.bookpublishinghousevalue, this.state.bookauthorvalues, filename);
-        this.setState({booktitlevalue: '', bookisbnvalue: '', bookpublicationyearvalue:'', bookpublishinghousevalue:'', bookauthorvalues: []});
+        this.setState({booktitlevalue: '', bookisbnvalue: '', bookpublicationyearvalue:'', bookpublishinghousevalue:'', bookauthorvalues: [], percent: 0});
         this.validator.hideMessages();
     }
     else {
