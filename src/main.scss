@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&subset=latin-ext');
+@import'scss/colors';
+@import'scss/grid';
+@import'scss/datepicker';
+@import'scss/presence';
+@import'scss/login';
+@import'scss/confirm';
+@import'scss/nav';
+@import'scss/top';
+@import'scss/forms';
+
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+html{
+	height: 100%;
+}
+body{
+	background: $bgcolor;
+	font-family: 'Roboto', sans-serif;
+	height:100%;
+	.w-33{
+		width: 33.3%;
+	}
+	.w-50{
+		width: 50%;
+	}
+	.tiny{
+	font-size: 11px;
+	}
+	#app{
+		height:100%;
+		position: relative;
+		& > div{
+			height: 100%
+		}
+		.imgcard{
+			border-radius: 50%;
+			border: 1px solid #eee;
+			width: 150px;
+		}
+		.userdata{
+			color:#fff;
+			svg{
+				fill:#fff;
+				margin:0px 10px;
+			}
+			button{
+				margin: 0px 0px 0px 10px
+			}
+		}
+		.srv-validation-message{
+			font-size: 12px;
+			color: #dc3545;
+			
+		}
+	}
+}

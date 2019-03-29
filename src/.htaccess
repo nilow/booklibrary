@@ -1,0 +1,679 @@
+<ifModule mod_gzip.c>
+mod_gzip_on Yes
+mod_gzip_dechunk Yes
+mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+mod_gzip_item_include handler ^cgi-script$
+mod_gzip_item_include mime ^text/.*
+mod_gzip_item_include mime ^application/x-javascript.*
+mod_gzip_item_exclude mime ^image/.*
+mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</ifModule>
+##Tweaks##
+Header set X-Frame-Options SAMEORIGIN
+
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType text/html "access 1 month"
+ExpiresByType application/pdf "access 1 month"
+ExpiresByType text/x-javascript "access 1 month"
+ExpiresByType application/x-shockwave-flash "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access 1 month"
+</IfModule>
+## EXPIRES CACHING ##
+
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+    <filesmatch "\.(ico|flv|gif|swf|eot|woff|otf|ttf|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </filesmatch>
+    <filesmatch "\.(jpg|jpeg|png)$">
+        Header set Cache-Control "max-age=1209600, public"
+    </filesmatch>
+    <filesmatch "\.(eot|woff|otf|ttf|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </filesmatch>
+    # css and js should use private for proxy caching https://developers.google.com/speed/docs/best-practices/caching#LeverageProxyCaching
+    <filesmatch "\.(css)$">
+       Header set Cache-Control "max-age=31536000, private"
+    </filesmatch>
+    <filesmatch "\.(js)$">
+        Header set Cache-Control "max-age=1209600, private"
+    </filesmatch>
+</IfModule>
+
+
+
+# Turn on URL rewriting
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^ogrodowysalon.pl(.*) [NC]
+RewriteRule ^(.*)$ http://www.ogrodowysalon.pl/$1 [R=301,L]
+RewriteRule ^home$ http://www.ogrodowysalon.pl/$1 [R=301,L]
+RewriteRule ^map.xml$ sitemap/mapxml
+#RewriteRule ^meble-technorattan$ http://www.ogrodowysalon.pl/meble-ogrodowe-technorattan [R=301,L]
+#RewriteRule ^meble-teak$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+
+RewriteRule ^product/lezak-smart.html / [R=301,L]
+
+
+
+
+
+RewriteRule ^showroom$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^product/wypozyczenie-podstawy-do-parasola.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-aluminiowego-stoliczka-kawowego.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-krzesla-ogrodowego-san-remo.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-krzesla-ogrodowego-california.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-stoliczka-kawowego-teak.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-stolika-san-remo-90-cm.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/dostawa-i-odbior-wypozyczonych-mebli.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-parasola-ogrodowego-3m.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-lezaka-technorattanowego-majorka.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-stolika-ogrodowego-santa-monica.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-lezaka-aluminiowego.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-skrzyni-technorattanowej.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-hustawki-majorka.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-zestawu-aluminiowego-manhattan.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-pawilonu-ogrodowego-4x3-m-vancouver.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/ogrzewacz-zewnetrzny-vancouver.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-lezaka-teakowego.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-lawki-ogrodowej-teak.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-lezaka-malaga.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-naroznika-technorattanowego-meraux.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-stolu-beverly-hills.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+RewriteRule ^product/wypozyczenie-stolu-singapur.html$ http://www.ogrodowysalon.pl/wypozyczalnia-mebli-ogrodowych [R=301,L]
+
+RewriteRule ^klauzula-informacyjna media/files/Klauzula-informacyjna.pdf
+
+RewriteRule ^product/lampa-ogrodowa-gjovik.html$ http://www.ogrodowysalon.pl [R=301,L]
+RewriteRule ^product/zestaw-aluminiowy-santa-monica.html$ http://www.ogrodowysalon.pl [R=301,L]
+RewriteRule ^product/zestaw-manila-z-drewna-teak.html$ http://www.ogrodowysalon.pl [R=301,L]
+RewriteRule ^wyprzedaz-mebli-ogrodowych$ http://www.ogrodowysalon.pl [R=301,L]
+
+RewriteRule ^stylowe-meble-ogrodowe$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^zestawy-ogrodowe$ http://www.ogrodowysalon.pl/zestawy-ogrodowe-aluminiowe [R=301,L]
+RewriteRule ^stoly-ogrodowe$ http://www.ogrodowysalon.pl/stoly-aluminiowe [R=301,L]
+#RewriteRule ^krzesla-ogrodowe$ http://www.ogrodowysalon.pl/krzesla-ogrodowe-aluminiowe [R=301,L]
+RewriteRule ^lawki-ogrodowe$ http://www.ogrodowysalon.pl/lawki-teak [R=301,L]
+RewriteRule ^siec-sprzedazy$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-gdansk$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-Grudziadz$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-Katowice$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-krakow$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-wroclaw$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+RewriteRule ^meble-ogrodowe-poznan$ http://www.ogrodowysalon.pl/meble-ogrodowe-warszawa [R=301,L]
+
+RewriteRule ^product/dywan-ogrodowy-sredni.html$ http://www.ogrodowysalon.pl/product/dywan-ogrodowy-195x133.html [R=301,L]
+RewriteRule ^product/dywan-ogrodowy-duzy.html$ http://www.ogrodowysalon.pl/product/dywan-ogrodowy-230x160.html [R=301,L]
+
+RewriteRule ^product/stol-ogrodowy-milan-110x110-z-granitowym-blatem.html$ http://www.ogrodowysalon.pl/product/stolik-bistro-technorattan-bron.html [R=301,L]
+RewriteRule ^product/stol-ogrodowy-milan-160x110-z-granitowym-blatem.html$ http://www.ogrodowysalon.pl/product/stol-granitowy-in-out-milan.html [R=301,L]
+RewriteRule ^product/stol-ogrodowy-milan-210x110-z-granitowym-blatem.html$ http://www.ogrodowysalon.pl/product/stol-granitowy-in-out-milan.html [R=301,L]
+
+RewriteRule ^meble-aluminiowe$ http://www.ogrodowysalon.pl/aluminiowe-meble-ogrodowe [R=301,L]
+RewriteRule ^metalowe-meble-ogrodowe$ http://www.ogrodowysalon.pl/aluminiowe-meble-ogrodowe [R=301,L]
+RewriteRule ^meble-teak$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^hustawki$ http://www.ogrodowysalon.pl/hustawki-ogrodowe [R=301,L]
+RewriteRule ^meble-wloskie$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^skladanie-zamowien$ http://www.ogrodowysalon.pl/dostawa [R=301,L]
+RewriteRule ^altanki-ogrodowe$ http://www.ogrodowysalon.pl/pawilony-ogrodowe [R=301,L]
+RewriteRule ^lampy$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^parasole$ http://www.ogrodowysalon.pl/parasole-ogrodowe [R=301,L]
+RewriteRule ^dywany-tarasowe$ http://www.ogrodowysalon.pl/dywany-ogrodowe [R=301,L]
+RewriteRule ^ogrzewacze-tarasowe$ http://www.ogrodowysalon.pl/ogrzewacze-ogrodowe [R=301,L]
+RewriteRule ^zagle-ogrodowe$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+RewriteRule ^pokrowce$ http://www.ogrodowysalon.pl/pokrowce-ogrodowe [R=301,L]
+RewriteRule ^meble-technorattan$ http://www.ogrodowysalon.pl/meble-ogrodowe-technorattan [R=301,L]
+RewriteRule ^faq$ http://www.ogrodowysalon.pl/ [R=301,L]
+
+RewriteRule ^projektanci-ogrodow$ http://www.ogrodowysalon.pl/ [R=301,L]
+RewriteRule ^wypozyczalnia-mebli-ogrodowych$ http://www.ogrodowysalon.pl/ [R=301,L]
+
+RewriteRule ^product/zagiel-corradi-defense.html$ http://www.ogrodowysalon.pl/product/defense.html [R=301,L]
+
+RewriteRule ^zagiel-przeciwsloneczny$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-trojkat-36-x-36-x-36-m.html$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-trojkat-5-x-5-x-5-m.html$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-kwadrat-36-x-36-m.html$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-kwadrat-54-x-54-m.html$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+
+RewriteRule ^ogrodowe-lampy-scienne$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^ogrodowe-lampy-stojace$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/podstawa-pod-parasol-betonowa.html$ http://www.ogrodowysalon.pl/product/podstawa-pod-parasol-okragla-50-kg.html [R=301,L]
+
+RewriteRule ^product/technorattan-naroznik-estelle.html$ http://www.ogrodowysalon.pl/narozniki-technorattan [R=301,L]
+RewriteRule ^product/naroznik-technorattan-ellwood.html$ http://www.ogrodowysalon.pl/narozniki-technorattan [R=301,L]
+
+RewriteRule ^product/fotel-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+RewriteRule ^product/fotel-technorattan-vancouver.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+RewriteRule ^product/krzeslo-technorattan-vancouver.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans.html [R=301,L]
+
+#RewriteRule ^product/technorattan-stolik-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/stolik-kawowy-prostokatny-technorattan-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-stoliczek-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/stolik-kawowy-kwadratowy-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/fotel-technorattan-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/brazowe-krzeslo-technorattan-orpheus.html [R=301,L]
+
+RewriteRule ^product/aluminiowe-meble-ogrodowe-sacramento.html$ http://www.ogrodowysalon.pl/product/aluminiowe-meble-ogrodowe-santa-barbara.html [R=301,L]
+
+
+#RewriteRule ^product/lampa-ogrodowa-catalpa-led.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-wiszaca-tuli-z-winylowym-kloszem.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-kinkiet-tuli.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-na-stolik-tuli-z-winylowym-kloszem.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-podstawek-tuli.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-na-stolik-tuli-z-technorattanowym-kloszem.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/stojaca-lampa-tuli-z-winylowym-kloszem.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^product/lampa-stojaca-tuli-z-technorattanowym-kloszem.html$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^lampy-tarasowe$ http://www.ogrodowysalon.pl/lampy-ogrodowe [R=301,L]
+RewriteRule ^o-nas$ http://www.ogrodowysalon.pl [R=301,L]
+
+RewriteRule ^product/lampa-parkowa-stojaca-gjovik.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+
+
+RewriteRule ^meble-corradi$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^product/pausa.html$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^product/momenti.html$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^product/terra-mare.html$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+RewriteRule ^product/too-gether.html$ http://www.ogrodowysalon.pl/wloskie-meble-ogrodowe [R=301,L]
+
+RewriteRule ^product/spin.html$ http://www.ogrodowysalon.pl/product/defense.html [R=301,L]
+RewriteRule ^product/x-tension.html$ http://www.ogrodowysalon.pl/product/magical.html [R=301,L]
+
+RewriteRule ^Meble-nardi$ http://www.ogrodowysalon.pl/meble-nardi [R=301,L]
+
+#RewriteRule ^product/pergotenda-45.html$ http://www.ogrodowysalon.pl/product/pergotenda-60.html [R=301,L]
+
+RewriteRule ^product/technorattan-skrzynie-ogrodowe-male.html$ http://www.ogrodowysalon.pl/product/skrzynia-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-skrzynie-ogrodowe-srednie.html$ http://www.ogrodowysalon.pl/product/skrzynia-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/technorattan-skrzynie-ogrodowe-duze.html$ http://www.ogrodowysalon.pl/product/skrzynia-technorattan-duza-le-mans.html [R=301,L]
+
+RewriteRule ^product/technorattan-donice-ogrodowe-70-cm.html$ http://www.ogrodowysalon.pl/product/zestaw-czarne-donice-technorattanowe.html [R=301,L]
+RewriteRule ^product/technorattan-donice-ogrodowe-85-cm.html$ http://www.ogrodowysalon.pl/product/zestaw-czarne-donice-technorattanowe.html [R=301,L]
+RewriteRule ^product/technorattan-donice-ogrodowe-100-cm.html$ http://www.ogrodowysalon.pl/product/zestaw-czarne-donice-technorattanowe.html [R=301,L]
+
+RewriteRule ^product/technorattan-zestaw-z-lawkami-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/technorattan-zestaw-vancouver-dla-8-osob.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-z-lawkami-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/technorattan-zestaw-vancouver-dla-8-osob.html [R=301,L]
+
+RewriteRule ^product/parasol-ogrodowy-25-m-teak.html$ http://www.ogrodowysalon.pl/product/parasol-ogrodowy-25-m-bambus.html [R=301,L]
+RewriteRule ^product/parasol-ogrodowy-3-m-teak.html$ http://www.ogrodowysalon.pl/product/parasol-ogrodowy-3-m-bambus.html [R=301,L]
+RewriteRule ^product/parasol-ogrodowy-3-x-2-m-teak.html$ http://www.ogrodowysalon.pl/product/parasol-ogrodowy-3-m-bambus.html [R=301,L]
+RewriteRule ^product/parasol-ogrodowy-35-m-teak.html$ http://www.ogrodowysalon.pl/product/parasol-ogrodowy-35-m-bambus.html [R=301,L]
+
+#RewriteRule ^product/stol-prostokatny-210x100-alloro.html$ http://www.ogrodowysalon.pl/product/stol-rozkladany-140-210-alloro.html [R=301,L]
+
+RewriteRule ^product/zestaw-ogrodowy-z-teaku-bangkok-z-ekspozycji.html$ http://www.ogrodowysalon.pl/product/zestaw-ogrodowy-z-teaku-bangkok.html [R=301,L]
+RewriteRule ^product/pawilon-4x3-m-vancouver-wyprzedaz.html$ http://www.ogrodowysalon.pl/product/pawilon-ogrodowy-4x3-m-drewniany-vancouver.html [R=301,L]
+
+RewriteRule ^product/stalowy-fotel-balkonowy-nimes.html$ http://www.ogrodowysalon.pl/product/czarny-aluminiowy-lezak-ogrodowy-toulouse.html [R=301,L]
+RewriteRule ^product/lezak-ogrodowy-aluminiowy-nimes.html$ http://www.ogrodowysalon.pl/product/czarny-aluminiowy-lezak-ogrodowy-toulouse.html [R=301,L]
+
+RewriteRule ^product/pokrowiec-na-fotel-ogrodowy.html$ http://www.ogrodowysalon.pl/product/pokrowce-na-sofy-i-narozniki-ogrodowe.html [R=301,L]
+RewriteRule ^product/pokrowiec-na-sofe-2-osobowa.html$ http://www.ogrodowysalon.pl/product/pokrowce-na-sofy-i-narozniki-ogrodowe.html [R=301,L]
+RewriteRule ^product/pokrowiec-na-sofe-3-osobowa.html$ http://www.ogrodowysalon.pl/product/pokrowce-na-sofy-i-narozniki-ogrodowe.html [R=301,L]
+RewriteRule ^product/pokrowiec-na-sofe-4-osobowa.html$ http://www.ogrodowysalon.pl/product/pokrowce-na-sofy-i-narozniki-ogrodowe.html [R=301,L]
+
+#tu przekierowania z 30 września
+RewriteRule ^product/meble-stalowe-bourton.html$ http://www.ogrodowysalon.pl/product/technorattanowe-krzeslo-do-hotelu-roanne.html [R=301,L]
+
+RewriteRule ^product/poduszka-na-krzeslo-vancouver.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+RewriteRule ^product/krzeslo-technorattan-vancouver.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+RewriteRule ^product/fotel-technorattan-vancouver.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+#RewriteRule ^product/brazowy-fotel-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-le-mans-z-podlokietnikami.html [R=301,L]
+
+RewriteRule ^product/okragly-stol-technorattan-vancouver-120-cm.html$ http://www.ogrodowysalon.pl/product/stol-okragly-technorattan-120-le-mans.html [R=301,L]
+
+RewriteRule ^product/okragly-stol-technorattan-vancouver-150-cm.html$ http://www.ogrodowysalon.pl/product/stol-okragly-technorattan-160-le-mans.html [R=301,L]
+RewriteRule ^product/okragly-stol-technorattan-vancouver-180-cm.html$ http://www.ogrodowysalon.pl/product/stol-okragly-technorattan-160-le-mans.html [R=301,L]
+#RewriteRule ^product/okragly-stol-technorattan-toronto-150-cm.html$ http://www.ogrodowysalon.pl/product/stol-okragly-technorattan-160-le-mans.html [R=301,L]
+#RewriteRule ^product/okragly-stol-technorattan-toronto-180-cm.html$ http://www.ogrodowysalon.pl/product/stol-okragly-technorattan-160-le-mans.html [R=301,L]
+
+
+RewriteRule ^product/technorattan-zestaw-vancouver-dla-4-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-120-i-4-krzesla.html [R=301,L]
+#RewriteRule ^product/zestaw-kwadratowy-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-120-i-4-krzesla.html [R=301,L]
+
+RewriteRule ^product/technorattan-zestaw-vancouver-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-160-i-6-krzesel.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-vancouver-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-160-i-6-krzesel.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-okragly-toronto-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-160-i-6-krzesel.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-okragly-toronto-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-160-i-6-krzesel.html [R=301,L]
+
+#RewriteRule ^product/drewniany-pawilon-ogrodowy-vancouver-3x3-m.html$ http://www.ogrodowysalon.pl/product/metalowy-pawilon-ogrodowy-3x3-m-orlean.html [R=301,L]
+#RewriteRule ^product/pawilon-ogrodowy-3x3m-nowy-orlean-.html$ http://www.ogrodowysalon.pl/product/metalowy-pawilon-ogrodowy-3x3-m-orlean.html [R=301,L]
+
+#RewriteRule ^product/pawilon-ogrodowy-4x3-m-drewniany-vancouver.html$ http://www.ogrodowysalon.pl/product/ekskluzywny-pawilon-ogrodowy-saint-tropez.html [R=301,L]
+#RewriteRule ^product/pawilon-ogrodowy-3x4m-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/ekskluzywny-pawilon-ogrodowy-saint-tropez.html [R=301,L]
+
+#RewriteRule ^product/metalowy-pawilon-3x3-m-oslo-z-poliweglanowym-dachem.html$ http://www.ogrodowysalon.pl/product/pergola-z-rozsuwanym-dachem-split.html [R=301,L]
+#RewriteRule ^product/metalowy-pawilon-ogrodowy-4x3-m-oslo-.html$ http://www.ogrodowysalon.pl/product/pergola-z-rozsuwanym-dachem-split.html [R=301,L]
+#RewriteRule ^product/pawilon-z-rozsuwanym-dachem-oslo.html$ http://www.ogrodowysalon.pl/product/pergola-z-rozsuwanym-dachem-split.html [R=301,L]
+
+RewriteRule ^product/promiennik-do-parasola.html$ http://www.ogrodowysalon.pl/product/promiennik-do-parasola-ogrodowego-madrid.html [R=301,L]
+
+RewriteRule ^product/zagiel-przeciwsloneczny-trojkat-36-m.html$ http://www.ogrodowysalon.pl/product/sosta.html [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-trojkat-5-m.html$ http://www.ogrodowysalon.pl/product/sosta.html [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-kwadrat-36-m.html$ http://www.ogrodowysalon.pl/product/sosta.html [R=301,L]
+RewriteRule ^product/zagiel-przeciwsloneczny-kwadrat-54-m.html$ http://www.ogrodowysalon.pl/product/sosta.html [R=301,L]
+#RewriteRule ^zagle-przeciwsloneczne$ http://www.ogrodowysalon.pl/product/sosta.html [R=301,L]
+
+RewriteRule ^product/parasol-ogrodowy-3-m-aluminium.html$ http://www.ogrodowysalon.pl/product/parasol-aluminiowy-okragly-3-m.html [R=301,L]
+
+RewriteRule ^product/hustawka-cocoon.html$ http://www.ogrodowysalon.pl/product/hustawka-technorattanowa-cocoon.html [R=301,L]
+
+#RewriteRule ^product/technorattan-stoliczek-kawowy-toronto.html$ http://www.ogrodowysalon.pl/product/stoliczek-kawowy-pufa-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-stoliczek-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/stoliczek-kawowy-pufa-le-mans.html [R=301,L]
+
+#RewriteRule ^product/technorattan-lezak-toronto.html$ http://www.ogrodowysalon.pl/product/lezak-technorattanowy-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-lezak-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/lezak-technorattanowy-le-mans.html [R=301,L]
+
+#RewriteRule ^product/technorattan-zestaw-toronto-dla-2-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-dla-2-le-mans.html [R=301,L]
+
+
+
+#RewriteRule ^product/zestaw-prostokatny-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-200x100-i-6-foteli.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-200x100-i-6-foteli.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-200x100-i-6-foteli.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-10-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-200x100-i-6-foteli.html [R=301,L]
+
+RewriteRule ^product/zestaw-wypoczynkowy-technorattan-quebec-dla-7.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-monaco.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-quebec-dla-4-osob.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-monaco.html [R=301,L]
+
+RewriteRule ^product/technorattan-quebec-zestaw-jadalniany-dla-6.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-okragly-technorattan-nantes.html [R=301,L]
+RewriteRule ^product/technorattan-quebec-zestaw-jadalniany-dla-4.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-okragly-technorattan-nantes.html [R=301,L]
+
+RewriteRule ^product/sofa-3-osobowa-technorattanowa-quebec.html$ http://www.ogrodowysalon.pl/product/biala-sofa-3-osobowa-technorattan-monaco.html [R=301,L]
+RewriteRule ^product/sofa-2-osobowa-technorattanowa-quebec.html$ http://www.ogrodowysalon.pl/product/biala-sofa-3-osobowa-technorattan-monaco.html [R=301,L]
+
+RewriteRule ^product/stolik-technorattanowy-quebec-120-cm.html$ http://www.ogrodowysalon.pl/product/stoly-okragle-107-cm-technorattan-nantes.html [R=301,L]
+RewriteRule ^product/stolik-technorattanowy-quebec-150-cm.html$ http://www.ogrodowysalon.pl/product/stoly-okragle-107-cm-technorattan-nantes.html [R=301,L]
+
+RewriteRule ^product/skrzynia-technorattanowa-quebec-srednia.html$ http://www.ogrodowysalon.pl/product/stoliczek-kawowy-laon.html [R=301,L]
+RewriteRule ^product/skrzynia-technorattanowa-quebec-duza.html$ http://www.ogrodowysalon.pl/product/stoliczek-kawowy-laon.html [R=301,L]
+RewriteRule ^product/skrzynia-technorattanowa-quebec-mala.html$ http://www.ogrodowysalon.pl/product/stoliczek-kawowy-laon.html [R=301,L]
+
+RewriteRule ^product/fotel-technorattanowy-quebec.html$ http://www.ogrodowysalon.pl/product/bialy-fotel-technorattan-monaco.html [R=301,L]
+RewriteRule ^product/obrotowy-fotel-technorattan-quebec.html$ http://www.ogrodowysalon.pl/product/bialy-fotel-technorattan-monaco.html [R=301,L]
+RewriteRule ^product/krzeslo-technorattan-quebec-biale.html$ http://www.ogrodowysalon.pl/product/bialy-fotel-technorattan-monaco.html [R=301,L]
+
+#RewriteRule ^product/technorattan-stolik-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/stolik-kawowy-prostokatny-technorattan-le-mans.html [R=301,L]
+
+#RewriteRule ^product/fotel-technorattan-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/fotel-technorattan-le-mans-2.html [R=301,L]
+
+#RewriteRule ^product/sofa-2-osobowa-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/sofa-technorattan-3-osobowa-le-mans.html [R=301,L]
+#RewriteRule ^product/sofa-technorattan-nowy-orlean-3-osobowa.html$ http://www.ogrodowysalon.pl/product/sofa-technorattan-3-osobowa-le-mans.html [R=301,L]
+#RewriteRule ^product/sofa-nowy-orlean-4-osobowa.html$ http://www.ogrodowysalon.pl/product/sofa-technorattan-3-osobowa-le-mans.html [R=301,L]
+
+RewriteRule ^product/meble-ogrodowe-technorattan-avondale.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-ogrodowy-gretna.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-ogrodowy-kenner.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-ogrodowy-harvey.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-le-mans.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-regina.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/stoliczek-kawowy-quebec.html$ http://www.ogrodowysalon.pl/product/bialy-stolik-kawowy-technorattan-monaco.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-technorattanowy-quebec.html$ http://www.ogrodowysalon.pl/product/bialy-stolik-kawowy-technorattan-monaco.html [R=301,L]
+
+RewriteRule ^product/promiennik-podczerwieni.html$ http://www.ogrodowysalon.pl/product/promiennik-tarasowy-malaga.html [R=301,L]
+
+
+RewriteRule ^product/tarasowy-zestaw-okragly-malaga.html$ http://www.ogrodowysalon.pl/product/stol-okragly-110-technorattan-laon.html [R=301,L]
+RewriteRule ^product/stol-okragly-z-blatem-granitowym-malaga.html$ http://www.ogrodowysalon.pl/product/stol-okragly-110-technorattan-laon.html [R=301,L]
+
+RewriteRule ^product/meble-do-kawiarni-annecy.html$ http://www.ogrodowysalon.pl/meble-do-restauracji [R=301,L]
+RewriteRule ^product/meble-ogrodowe-do-restauracji-lyon.html$ http://www.ogrodowysalon.pl/meble-do-restauracji [R=301,L]
+
+RewriteRule ^product/krzeslo-z-podlokietnikami-gemma.html$ http://www.ogrodowysalon.pl/product/krzeslo-z-podlokietnikami-nardi-palma.html [R=301,L]
+
+RewriteRule ^product/naroznik-technorattan-valence.html$ http://www.ogrodowysalon.pl/product/wysoki-naroznik-z-technorattanu-evry.html [R=301,L]
+RewriteRule ^product/szary-naroznik-technorattan-calais.html$ http://www.ogrodowysalon.pl/product/wysoki-naroznik-z-technorattanu-evry.html [R=301,L]
+
+RewriteRule ^product/zestaw-technorattan-gramat.html$ http://www.ogrodowysalon.pl/product/rozkladane-krzeslo-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/stol-prostokatny-150x90-technorattan-gramat.html$ http://www.ogrodowysalon.pl/product/rozkladane-krzeslo-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/meble-z-akacji-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/meble-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/krzeslo-rozkladane-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/rozkladany-fotel-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/podnozek-drewniany-z-buku-eco.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/lawka-sosnowa-110-cm-albi.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/fotel-regulowany-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/lawka-sosnowa-190-cm-albi.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/fotel-drewniany-z-buku-eco.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/lawka-bez-oparc-z-akacji-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/krzeslo-pokladowe-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/krzeslo-pokladowe-lezak-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-dla-2-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/fotel-wypoczynkowy-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/drewniana-skrzynia-ogrodowa.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-dla-dwojga-z-akacji-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/lawka-3-osobowa-akacja-palencia.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/sosnowy-fotel-wypoczynkowy-reus.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/skandynawskie-krzeslo-tarbes.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-okragly-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/sosnowa-lawka-drewniana-gandia.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-prostokatny-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/skandynawski-stol-tarbes.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-barowy-sosna-albi.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-stol-4-lawki-sosnowe-gandia.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/sosnowa-lawa-ogrodowa-gandia.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/narozniki-drewniane-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-sosna-albi.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/sosnowy-zestaw-obiadowy-reus.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-wypoczynkowy-z-akacji-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-akacja-palencia.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-z-akacji-adra.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-z-akacji-linares.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-tarbes.html$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+RewriteRule ^drewniane-meble-ogrodowe$ http://www.ogrodowysalon.pl/meble-ogrodowe-teak [R=301,L]
+
+RewriteRule ^product/parasol-aluminiowy-okragly-3-m.html$ http://www.ogrodowysalon.pl/product/parasol-na-nodze-bocznej-3m-linz.html [R=301,L]
+RewriteRule ^product/parasol-aluminiowy-okragly-33-m.html$ http://www.ogrodowysalon.pl/product/parasol-na-nodze-bocznej-3m-linz.html [R=301,L]
+RewriteRule ^product/parasol-aluminiowy-prostokatny-3x4-m.html$ http://www.ogrodowysalon.pl/product/parasol-na-nodze-bocznej-3m-linz.html [R=301,L]
+
+RewriteRule ^product/poduszeczka-dekoracyjna-50x50.html$  http://www.ogrodowysalon.pl/product/poduszeczki-dekoracyjne-noosa.html [R=301,L]
+RewriteRule ^product/poduszeczka-dekoracyjna-60x40-dralon.html$ http://www.ogrodowysalon.pl/product/poduszeczki-dekoracyjne-noosa.html [R=301,L]
+RewriteRule ^product/poduszeczka-ozdobna-40x40-cm.html$ http://www.ogrodowysalon.pl/product/poduszeczki-dekoracyjne-noosa.html [R=301,L]
+RewriteRule ^product/poduszeczka-ozdobna-60x60-cm.html$ http://www.ogrodowysalon.pl/product/poduszeczki-dekoracyjne-noosa.html [R=301,L]
+RewriteRule ^product/poduszeczka-ozdobna-50x50-cm.html$ http://www.ogrodowysalon.pl/product/poduszeczki-dekoracyjne-noosa.html [R=301,L]
+
+RewriteRule ^product/stol-okragly-130-cm-technorattan-tulle.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-tulle.html [R=301,L]
+RewriteRule ^product/zestaw-stol-i-cztery-krzesla-technorattan-tulle.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-tulle.html [R=301,L]
+
+RewriteRule ^product/stol-owalny-technorattan-180x115-tulle.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-technorattan-stol-owalny-i-6-krzesel-tulle.html [R=301,L]
+
+RewriteRule ^product/stol-prostokatny-technorattan-avallon.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-avallon.html [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-technorattan-avallon.html$ http://www.ogrodowysalon.pl/product/krzeslo-technorattan-avallon.html [R=301,L]
+
+RewriteRule ^product/lozko-obrotowe-na-taras-barbados.html$ http://www.ogrodowysalon.pl/product/lozko-tarasowe-technorattan-barbados.html [R=301,L]
+
+RewriteRule ^product/stoly-podluzne-150x90-cm-technorattan-nantes.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-okragly-technorattan-nantes.html [R=301,L]
+RewriteRule ^product/sofa-technorattan-nantes.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-okragly-technorattan-nantes.html [R=301,L]
+RewriteRule ^product/zestaw-wypoczynkowy-technorattan-nantes.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-okragly-technorattan-nantes.html [R=301,L]
+
+RewriteRule ^samba$ http://www.ogrodowysalon.pl/saint-tropez-dining [R=301,L]
+RewriteRule ^product/teakowy-stoliczek-kawowy-samba.html$ http://www.ogrodowysalon.pl/saint-tropez-dining [R=301,L]
+RewriteRule ^product/stol-okragly-z-blatem-teakowym-samba.html$ http://www.ogrodowysalon.pl/saint-tropez-dining [R=301,L]
+RewriteRule ^product/stol-prostokatny-z-blatem-teakowym-samba.html$ http://www.ogrodowysalon.pl/saint-tropez-dining [R=301,L]
+
+RewriteRule ^product/zadaszenie-z-dachem-szklanym.html$ http://www.ogrodowysalon.pl/product/zadaszenie-z-dachem-poliweglanowym.html [R=301,L]
+RewriteRule ^product/zadaszenie-narozne.html$ http://www.ogrodowysalon.pl/product/zadaszenie-z-dachem-poliweglanowym.html [R=301,L]
+RewriteRule ^product/condor.html$ http://www.ogrodowysalon.pl/product/defense.html [R=301,L]
+RewriteRule ^product/free.html$ http://www.ogrodowysalon.pl/product/intrepid.html [R=301,L]
+RewriteRule ^product/magical.html$ http://www.ogrodowysalon.pl/product/intrepid.html [R=301,L]
+
+RewriteRule ^product/lampa-ogrodowa-scienna-lillestrom.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-scienna-lillehammer.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-scienna-mandal.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-scienna-kaafjorddalen.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-stojaca-carlshuus.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-scienna-mosjoen.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-scienna-larvik.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/aluminiowa-lampa-stojaca-halden.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-stojaca-egersund.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-ogrodowa-stojaca-askim.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-parkowa-stojaca-bodo.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-parkowa-stojaca-arendal.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+RewriteRule ^product/lampa-parkowa-stojaca-andenes.html$ http://www.ogrodowysalon.pl/product/aluminiowa-lampa-ogrodowa-stojaca-gjovik.html [R=301,L]
+
+RewriteRule ^product/iridium.html$ http://www.ogrodowysalon.pl/product/palladia.html [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-technorattan-stol-owalny-i-6-krzesel-tulle.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-160-i-6-krzesel.html [R=301,L]
+
+RewriteRule ^product/zestaw-ogrodowy-jakarta.html$ http://www.ogrodowysalon.pl/product/zestaw-ogrodowy-teak-brunei.html [R=301,L]
+
+RewriteRule ^product/naroznik-ogrodowy-barcelona.html$ http://www.ogrodowysalon.pl/product/naroznik-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/stol-z-blatem-skladanym-ibisco.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-z-blatem-skladanym-ibisco.html [R=301,L]
+RewriteRule ^product/stol-nardi-fiore.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-nardi-fiore.html [R=301,L]
+RewriteRule ^product/stol-fiore.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-fiore.html [R=301,L]
+RewriteRule ^product/stol-barowy-z-blatem-skladanym-scudo.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-barowego-z-blatem-skladanym-scudo.html [R=301,L]
+RewriteRule ^product/podwojny-stol-z-blatem-skladanym-scudo.html$ http://www.ogrodowysalon.pl/product/podstawa-podwojnego-stolu-z-blatem-skladanym-scudo.html [R=301,L]
+RewriteRule ^product/stol-z-blatem-skladanym-scudo.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-z-blatem-skladanym-scudo.html [R=301,L]
+RewriteRule ^product/stol-nardi-calice.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-nardi-calice.html [R=301,L]
+RewriteRule ^product/stol-barowy-calice.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-barowego-calice.html [R=301,L]
+RewriteRule ^product/stol-do-ogrodka-restauracji-calice.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-do-ogrodka-restauracji-calice.html [R=301,L]
+RewriteRule ^product/stol-nardi-break.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-nardi-break.html [R=301,L]
+RewriteRule ^product/stol-na-trzech-nogach-break.html$ http://www.ogrodowysalon.pl/product/podstawa-stolu-na-trzech-nogach-break.html [R=301,L]
+RewriteRule ^product/stolik-flute.html$ http://www.ogrodowysalon.pl/product/podstawa-stolika-flute.html [R=301,L]
+
+RewriteRule ^product/zestaw-technorattan-dla-2-le-mans.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-120-i-4-krzesla.html [R=301,L]
+RewriteRule ^product/szare-i-czarne-krzeslo-rozkladane-technorattan-gien.html$ http://www.ogrodowysalon.pl/product/krzesla-z-podlokietnikami-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/szare-i-czarne-krzeslo-technorattan-gien.html$ http://www.ogrodowysalon.pl/product/krzesla-z-podlokietnikami-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/szary-i-czarny-stol-prostokatny-210x100-gien.html$ http://www.ogrodowysalon.pl/product/stoly-okragle-technorattan-120-le-mans.html [R=301,L]
+RewriteRule ^product/szary-i-czarny-stol-okragly-gien.html$ http://www.ogrodowysalon.pl/product/stol-prostokatny-technorattan-le-mans-200x100.html [R=301,L]
+
+RewriteRule ^product/sofa-technorattan-gramat.html$ http://www.ogrodowysalon.pl/product/azurowa-sofa-3-osobowa-technorattan-orleans.html [R=301,L]
+
+RewriteRule ^zadaszenia-stale$ http://www.ogrodowysalon.pl/pergotenda-corradi [R=301,L]
+RewriteRule ^product/zadaszenie-z-dachem-poliweglanowym.html$ http://www.ogrodowysalon.pl/pergotenda-corradi [R=301,L]
+
+RewriteRule ^product/athena.html$ http://www.ogrodowysalon.pl/product/palladia.html [R=301,L]
+RewriteRule ^product/modus.html$ http://www.ogrodowysalon.pl/product/defense.html [R=301,L]
+RewriteRule ^product/sosta.html$ http://www.ogrodowysalon.pl/product/defense.html [R=301,L]
+
+#RewriteRule ^product/fotel-technorattan-winnipeg.html$ http://www.ogrodowysalon.pl/product/fotel-technorattan-winnipeg-du.html [R=301,L]
+#RewriteRule ^product/sofa--winnipeg-2-osobowa.html$ http://www.ogrodowysalon.pl/product/sofa-technorattan-winnipeg-du.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-winnipeg-dla-4-osob.html$ http://www.ogrodowysalon.pl/product/technorattan-zestaw-winnipeg-du-dla-4-osob.html [R=301,L]
+#RewriteRule ^product/technorattan-zestaw-winnipeg-dla-5-osob.html$ http://www.ogrodowysalon.pl/product/technorattan-zestaw-winnipeg-du-dla-5-osob.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-winnipeg-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/technorattan-zestaw-winnipeg-du-dla-6-osob.html [R=301,L]
+#RewriteRule ^product/sofa-winnipeg-3-osobowa.html$ http://www.ogrodowysalon.pl/product/sofa-3-osobowa-technorattan-winnipeg-du.html [R=301,L]
+
+RewriteRule ^product/defense.html$ http://www.ogrodowysalon.pl/product/zagiel-wolnostojacy-libeccio.html [R=301,L]
+RewriteRule ^product/intrepid.html$ http://www.ogrodowysalon.pl/product/zagiel-wolnostojacy-libeccio.html [R=301,L]
+RewriteRule ^Zagle-corradi$ http://www.ogrodowysalon.pl/zagle-corradi [R=301,L]
+
+RewriteRule ^product/metalowy-pawilon-ogrodowy-3x3-m-orlean.html$ http://www.ogrodowysalon.pl/product/pawilon-ogrodowy-3x4m-nowy-orlean.html [R=301,L]
+RewriteRule ^product/metalowy-pawilon-ogrodowy-3x4-m-orlean.html$ http://www.ogrodowysalon.pl/product/pawilon-ogrodowy-3x4m-nowy-orlean.html [R=301,L]
+
+RewriteRule ^product/azurowa-lezanka-technorattan-orleans.html$ http://www.ogrodowysalon.pl/product/lezak-technorattan-rodez.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-prostokatny-chalon.html$ http://www.ogrodowysalon.pl/product/stolik-technorattanowy-kawowy-le-mans.html [R=301,L]
+RewriteRule ^product/naroznik-technorattan-naturalny-chalon.html$ http://www.ogrodowysalon.pl/product/naroznik-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/ekskluzywny-pawilon-ogrodowy-saint-tropez.html$ http://www.ogrodowysalon.pl/product/pawilon-ogrodowy-3x4m-nowy-orlean.html [R=301,L]
+
+RewriteRule ^product/rozkladany-aluminiowy-fotel-tarasowy-hadol.html$ http://www.ogrodowysalon.pl/product/rozkladany-fotel-aluminiowy-clermont.html [R=301,L]
+#RewriteRule ^product/szafka-technorattanowa-le-mans.html$ http://www.ogrodowysalon.pl/product/szafka-technorattan-z-blatem-szklanym-le-mans.html [R=301,L]
+
+RewriteRule ^product/szary-zestaw-wypoczynkowy-niort.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-laon.html [R=301,L]
+
+RewriteRule ^product/stol-rozsuwany-z-teakowym-blatem-rennes.html$ http://www.ogrodowysalon.pl/product/stol-rozsuwany-194-252-durtal.html [R=301,L]
+RewriteRule ^product/zestaw-technorattanowy-reims.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/zestaw-technorattan-dla-5-troyes.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+
+RewriteRule ^aktualnosci_2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2013$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^wrzesien-2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^sierpien-2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^lipiec-2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^kwiecien-2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^styczen-2016$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^listopad-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^Lipiec-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^maj-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^kwiecien-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^marzec-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^luty-2015$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^grudzien-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^wrzesien-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^lipiec-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^czerwiec-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^maj-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^kwiecien-2014$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2014-03$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2014-02$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2014-01$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2013-12$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2013-10$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2013-06$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+RewriteRule ^aktualnosci_2013-01$ http://www.ogrodowysalon.pl/aktualnosci [R=301,L]
+
+RewriteRule ^text/dane-kontaktowe.html$ http://www.ogrodowysalon.pl/artykuly/dane-kontaktowe.html [R=301,L]
+RewriteRule ^text/przezroczysta-magia-krzesel.html$ http://www.ogrodowysalon.pl/artykuly/przezroczysta-magia-krzesel.html [R=301,L]
+RewriteRule ^text/polipropylenowe-meble.html$ http://www.ogrodowysalon.pl/artykuly/polipropylenowe-meble.html [R=301,L]
+RewriteRule ^text/krzesla-przezroczyste.html$ http://www.ogrodowysalon.pl/artykuly/krzesla-przezroczyste.html [R=301,L]
+RewriteRule ^text/zapraszamy-na-targi-zielen-to-zycie-2016-w-warszawie.html$ http://www.ogrodowysalon.pl/artykuly/zapraszamy-na-targi-zielen-to-zycie-2016-w-warszawie.html [R=301,L]
+RewriteRule ^text/wakacje-we-wloszech.html$ http://www.ogrodowysalon.pl/artykuly/wakacje-we-wloszech.html [R=301,L]
+RewriteRule ^text/nowe-produkty-w-2016.html$ http://www.ogrodowysalon.pl/artykuly/nowe-produkty-w-2016.html [R=301,L]
+RewriteRule ^text/czy-jestescie-gotowi-kibicowac-na-euro.html$ http://www.ogrodowysalon.pl/artykuly/czy-jestescie-gotowi-kibicowac-na-euro.html [R=301,L]
+RewriteRule ^text/umebluj-taras-w-1-kolorze.html$ http://www.ogrodowysalon.pl/artykuly/umebluj-taras-w-1-kolorze.html [R=301,L]
+RewriteRule ^text/zapraszamy-do-poznania-na-gardenie-2016.html$ http://www.ogrodowysalon.pl/artykuly/zapraszamy-do-poznania-na-gardenie-2016.html [R=301,L]
+RewriteRule ^text/zakupy-na-raty.html$ http://www.ogrodowysalon.pl/artykuly/zakupy-na-raty.html [R=301,L]
+RewriteRule ^text/wybierz-teraz-poduszki-dla-siebie.html$ http://www.ogrodowysalon.pl/artykuly/wybierz-teraz-poduszki-dla-siebie.html [R=301,L]
+RewriteRule ^text/ogrzewacze-ogrodowe-na-chlodne-wieczory.html$ http://www.ogrodowysalon.pl/artykuly/ogrzewacze-ogrodowe-na-chlodne-wieczory.html [R=301,L]
+RewriteRule ^text/looftlighter-w-polsce.html$ http://www.ogrodowysalon.pl/artykuly/looftlighter-w-polsce.html [R=301,L]
+RewriteRule ^text/ogrodowy-salon-w-warszawie.html$ http://www.ogrodowysalon.pl/artykuly/ogrodowy-salon-w-warszawie.html [R=301,L]
+RewriteRule ^text/parasol-ogrodowy-easy-sun-375-cm.html$ http://www.ogrodowysalon.pl/artykuly/parasol-ogrodowy-easy-sun-375-cm.html [R=301,L]
+RewriteRule ^text/fotele-technorattanowe-z-uszakami-epinal.html$ http://www.ogrodowysalon.pl/artykuly/fotele-technorattanowe-z-uszakami-epinal.html [R=301,L]
+
+RewriteRule ^product/szare-krzeslo-aluminiowe-cannes.html$ http://www.ogrodowysalon.pl/product/krzeslo-aluminiowe-cannes.html [R=301,L]
+RewriteRule ^product/szafka-technorattanowa-le-mans.html$ http://www.ogrodowysalon.pl/product/skrzynia-technorattan-duza-le-mans.html [R=301,L]
+
+RewriteRule ^product/stoliczek-kawowy-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-teakman.html [R=301,L]
+RewriteRule ^product/lezak-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-teakman.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-teakman.html [R=301,L]
+RewriteRule ^product/fotel-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-teakman.html [R=301,L]
+RewriteRule ^product/sofa-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-teakman.html [R=301,L]
+
+RewriteRule ^product/krzeslo-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-teakman.html [R=301,L]
+RewriteRule ^product/obiadowy-stol-prostokatny-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-teakman.html [R=301,L]
+
+RewriteRule ^product/krzeslo-barowe-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-teakman.html [R=301,L]
+RewriteRule ^product/stol-barowy-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-teakman.html [R=301,L]
+
+RewriteRule ^product/krzeslo-obiadowe-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/prostokatny-stol-obiadowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/prostokatny-zestaw-obiadowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/zestaw-wypoczynkowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/sofa-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/fotel-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/stoliczek-kawowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/stol-barowy-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+RewriteRule ^product/krzeslo-barowe-nomad.html$ http://www.ogrodowysalon.pl/product/zestaw-barowy-nomad.html [R=301,L]
+
+RewriteRule ^product/stoliczek-kawowy-smart.html$ http://www.ogrodowysalon.pl/product/lezaki-technorattanowe-le-mans.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-smart.html$ http://www.ogrodowysalon.pl/product/lezaki-technorattanowe-le-mans.html [R=301,L]
+RewriteRule ^product/fotel-smart.html$ http://www.ogrodowysalon.pl/product/lezaki-technorattanowe-le-mans.html [R=301,L]
+RewriteRule ^product/sofa-smart.html$ http://www.ogrodowysalon.pl/product/lezaki-technorattanowe-le-mans.html [R=301,L]
+
+
+RewriteRule ^product/stoliczek-kawowy-titan-lounge.html$ http://www.ogrodowysalon.pl/product/titan-lounge-zestaw-wypoczynkowy.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-titan-lounge.html$ http://www.ogrodowysalon.pl/product/titan-lounge-zestaw-wypoczynkowy.html [R=301,L]
+RewriteRule ^product/fotel-titan-lounge.html$ http://www.ogrodowysalon.pl/product/titan-lounge-zestaw-wypoczynkowy.html [R=301,L]
+RewriteRule ^product/titan-lounge-sofa.html$ http://www.ogrodowysalon.pl/product/titan-lounge-zestaw-wypoczynkowy.html [R=301,L]
+
+RewriteRule ^product/stolik-kawowy-120x60-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/fotel-kawowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/lawka-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/zestaw-kawowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/kwadratowy-stol--obiadowy-dla-8-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/kwadratowy-zestaw-obiadowy-dla-8-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/prostokatny-stol-obiadowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/krzeslo-obiadowe-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/prostokatny-zestaw-obiadowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/donica-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/stoliczek-kawowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/fotel-wypoczynkowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/sofa-wypoczynkowa-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+RewriteRule ^product/zestaw-wypoczynkowy-crocodile.html$ http://www.ogrodowysalon.pl/product/zestaw-sofa-2-fotele-cassandra.html [R=301,L]
+
+RewriteRule ^product/szafka-technorattan-z-blatem-szklanym-le-mans.html$ http://www.ogrodowysalon.pl/product/skrzynia-technorattan-agen.html [R=301,L]
+
+RewriteRule ^product/prostokatny-stol-obiadowy-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/krzeslo-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/krzeslo-z-podlokietnikami-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/fotel-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/sofa-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+RewriteRule ^product/zestaw-wypoczynkowy-fox.html$ http://www.ogrodowysalon.pl/product/prostokatny-zestaw-obiadowy-fox.html [R=301,L]
+
+RewriteRule ^product/lezak-cupid.html$ http://www.ogrodowysalon.pl/product/cupid-zestaw-wypoczynkowy.html [R=301,L]
+RewriteRule ^product/zestaw-2-doniczki-szary-technorattan-troyes.html$ http://www.ogrodowysalon.pl/product/czarny-naroznik-technorattan-niort.html [R=301,L]
+RewriteRule ^product/zestaw-technorattan-lorient-stol-i-4-fotele.html$ http://www.ogrodowysalon.pl/product/zestaw-technorattan-le-mans-stol-120-i-4-krzesla.html [R=301,L]
+RewriteRule ^product/stolik-kawowy-corbas.html$ http://www.ogrodowysalon.pl/product/fotel-bujany-technorattan-corbas.html [R=301,L]
+
+RewriteRule ^product/zestaw-barowy-teakman.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-teakman.html [R=301,L]
+
+RewriteRule ^product/sofa-nowy-orlean-4-osobowa.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/sofa-technorattan-nowy-orlean-3-osobowa.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/sofa-2-osobowa-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/sofka-narozna-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/fotel-technorattan-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-stolik-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-stoliczek-kawowy-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-lezak-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-regina.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-ogrodowy-harvey.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-ogrodowy-kenner.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-ogrodowy-gretna.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/brazowy-technorattan-toronto-nowy-orlean.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/zestaw-prostokatny-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/zestaw-kwadratowy-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-stoliczek-kawowy-toronto.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-lezak-toronto.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/brazowy-fotel-technorattan-toronto.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-okragly-toronto-dla-6-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-okragly-toronto-dla-8-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-owalny-toronto-dla-10-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/okragly-stol-technorattan-toronto-150-cm.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/okragly-stol-technorattan-toronto-180-cm.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/owalny-stol-technorattan-toronto-180-x-100-cm.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/owalny-stol-technorattan-toronto-250-x-120-cm.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+RewriteRule ^product/technorattan-zestaw-toronto-dla-2-osob.html$ http://www.ogrodowysalon.pl/product/naturalny-technorattan-le-mans.html [R=301,L]
+
+RewriteRule ^product/zestaw-wypoczynkowy-balma-z-wodoodpornymi-poduszkami.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-palma-z-wodoodpornymi-poduszkami.html [R=301,L]
+RewriteRule ^product/zestaw-obiadowy-balma-z-wodoodpornymi-poduszkami.html$ http://www.ogrodowysalon.pl/product/zestaw-obiadowy-palma-z-wodoodpornymi-poduszkami.html [R=301,L]
+RewriteRule ^product/krzeslo-aluminiowe-balma-z-wodoodporna-poduszka.html$ http://www.ogrodowysalon.pl/product/krzeslo-aluminiowe-palma-z-wodoodporna-poduszka.html [R=301,L]
+RewriteRule ^product/bialy-zestaw-wypoczynkowy-balma.html$ http://www.ogrodowysalon.pl/product/zestaw-wypoczynkowy-amigo.html [R=301,L]
+RewriteRule ^product/czarny-designerski-naroznik-aluminiowy-balma.html$ http://www.ogrodowysalon.pl/product/czarny-designerski-naroznik-aluminiowy-palma.html [R=301,L]
+RewriteRule ^product/czarny-modul-narozny-balma.html$ http://www.ogrodowysalon.pl/product/czarny-modul-narozny-palma.html [R=301,L]
+RewriteRule ^product/czarny-modul-srodkowy-balma.html$ http://www.ogrodowysalon.pl/product/czarny-modul-srodkowy-palma.html [R=301,L]
+RewriteRule ^product/czarny-puf-balma.html$ http://www.ogrodowysalon.pl/product/czarny-puf-palma.html [R=301,L]
+RewriteRule ^product/czarny-stoliczek-pomocniczy-balma.html$ http://www.ogrodowysalon.pl/product/czarny-stoliczek-pomocniczy-palma.html [R=301,L]
+RewriteRule ^product/czarny-stolik-kawowy-balma.html$ http://www.ogrodowysalon.pl/product/czarny-stolik-kawowy-palma.html [R=301,L]
+RewriteRule ^product/bialy-naroznik-aluminiowy-balma.html$ http://www.ogrodowysalon.pl/product/bialy-naroznik-aluminiowy-palma.html [R=301,L]
+RewriteRule ^product/bialy-modul-narozny-balma.html$ http://www.ogrodowysalon.pl/product/bialy-modul-narozny-palma.html [R=301,L]
+RewriteRule ^product/bialy-modul-srodkowy-balma.html$ http://www.ogrodowysalon.pl/product/bialy-modul-srodkowy-palma.html [R=301,L]
+RewriteRule ^product/bialy-puf-balma.html$ http://www.ogrodowysalon.pl/product/bialy-puf-palma.html [R=301,L]
+RewriteRule ^product/bialy-stoliczek-pomocniczy-balma.html$ http://www.ogrodowysalon.pl/product/bialy-stoliczek-pomocniczy-palma.html [R=301,L]
+RewriteRule ^product/bialy-stolik-kawowy-balma.html$ http://www.ogrodowysalon.pl/product/bialy-stolik-kawowy-palma.html [R=301,L]
+RewriteRule ^shenzhou-x-higold$ http://www.ogrodowysalon.pl/nowoczesne-meble-ogrodowe [R=301,L]
+RewriteRule ^teakman$ http://www.ogrodowysalon.pl/nowoczesne-meble-ogrodowe [R=301,L]
+RewriteRule ^childe$ http://www.ogrodowysalon.pl/nowoczesne-meble-ogrodowe [R=301,L]
+
+#RewriteCond %{QUERY_STRING} ^filteroptions\[\]=(.*)$ [NC]
+#RewriteRule (.*) /$1? [R=301,L]
+
+# Installation directory
+RewriteBase /
+
+# Protect hidden files from being viewed
+<Files .*>
+	Order Deny,Allow
+	Deny From All
+</Files>
+
+# Protect application and system files from being viewed
+RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
+
+# Allow any files or directories that exist to be displayed directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite all other URLs to index.php/URL
+RewriteRule .* index.php/$0 [PT]
+
+# Displaying PHP errors
+#php_flag display_errors on
+#php_value error_reporting 6143
+
+
